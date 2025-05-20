@@ -11,7 +11,9 @@ cd $project_name
 sed \
         -e "s/#min_version#/$CMAKE_VERSION/g" \
         -e "s/#proj_name#/$project_name/g" \
-        CMakeLists.txt > CMakeLists.txt
+        CMakeLists.txt >> CMakeListsNew.txt
+rm CMakeLists.txt
+mv CMakeListsNew.txt CMakeLists.txt
 echo "Generated CMakeLists.txt"
 touch main.cc
 )
