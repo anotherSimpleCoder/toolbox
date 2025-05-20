@@ -1,0 +1,34 @@
+void setBuildStatus(String message, String state) {
+  step([
+      $class: "GitHubCommitStatusSetter",
+      reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/anotherSimpleCoder/build-images"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "Build C++ build image"],
+      errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
+      statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
+  ]);
+}
+
+pipeline {
+    agent any
+
+    stages {
+        stage('Build and push docker image') {
+            steps {
+                script {
+                    dir('c++') {
+                        docker.withRegistry('https://ghcr.io', '6c946f9d-e780-4e81-918d-da3fa2f70934') {
+                            def buildImage = docker.build('ghcr.io/anothersimplecoder/cpp_build_linux_x86_64:latest')
+                            buildImage.push()
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Set GitHub status') {
+            steps {
+                setBuildStatus("Test and Build complete", "SUCCESS");
+            }
+        }
+    }
+}
