@@ -1,4 +1,4 @@
-require('lspconfig').lua_ls.setup {
+--[[require('lspconfig').lua_ls.setup {
   cmd = { 'lua-language-server' },
   filetypes = { 'lua' },
   settings = {
@@ -8,8 +8,12 @@ require('lspconfig').lua_ls.setup {
       }
     }
   }
-}
+}]]
 
+require('lspconfig').bashls.setup {
+  cmd = { 'bash-language-server', 'start' },
+  filetypes = { 'sh' }
+}
 
 require('lspconfig').clangd.setup {
   cmd = { 'clangd' },
