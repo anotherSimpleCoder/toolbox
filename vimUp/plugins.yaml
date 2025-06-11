@@ -1,6 +1,0 @@
-plugins:
-  - name: editorconfig-vim
-    path: https://github.com/editorconfig/editorconfig-vim
-
-  - name: supertab
-    path: https://github.com/ervandew/supertab 
