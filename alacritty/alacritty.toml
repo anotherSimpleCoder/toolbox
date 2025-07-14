@@ -1,0 +1,9 @@
+[window]
+opacity=0.8
+startup_mode="Maximized"
+
+[font]
+size=24.0
+
+[terminal]
+shell="/usr/bin/tmux"
